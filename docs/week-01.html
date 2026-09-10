@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 1 — Setup | fitness-platform</title>
+<style>
+:root{
+  --ink:#2A1F2D; --paper:#F6F3F5; --card:#FCFAFB; --line:#DED5DB;
+  --plum:#772953; --mute:#7A7078; --danger:#9A3324; --amber:#8F5D12;
+  --code-bg:#241D26; --code-fg:#EDE6EA;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --ink:#EDE6EA; --paper:#1A151C; --card:#221C24; --line:#3A303B;
+    --plum:#D08BAE; --mute:#9C919A; --danger:#E08B7A; --amber:#D9A441;
+    --code-bg:#120E14; --code-fg:#EDE6EA;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--paper);color:var(--ink);font-size:16px;line-height:1.65}
+.wrap{max-width:820px;margin:0 auto;padding:44px 24px 90px}
+header{border-bottom:1px solid var(--line);padding-bottom:26px;margin-bottom:8px}
+.eyebrow{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;color:var(--plum);margin:0 0 8px}
+h1{font-size:30px;font-weight:600;letter-spacing:-.02em;margin:0 0 12px}
+.lede{font-size:16px;color:var(--mute);margin:0 0 18px;max-width:62ch}
+.lede b{color:var(--ink);font-weight:500}
+.split{display:flex;gap:28px;flex-wrap:wrap;font-size:13.5px;color:var(--mute)}
+.split b{color:var(--ink);font-weight:500}
+nav{position:sticky;top:0;background:var(--paper);padding:14px 0;border-bottom:1px solid var(--line);z-index:5;
+  display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+nav button{font-family:inherit;font-size:13px;padding:5px 13px;cursor:pointer;background:transparent;
+  color:var(--mute);border:1px solid var(--line);border-radius:5px}
+nav button:hover{color:var(--ink);border-color:var(--mute)}
+nav button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+section{padding:28px 0;border-bottom:1px solid var(--line)}
+section.hide{display:none}
+h2{font-size:21px;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+.sub{font-size:14px;color:var(--mute);margin:0 0 22px;max-width:62ch}
+.step{padding:18px 0;border-top:1px solid var(--line)}
+.step.hide{display:none}
+.step:first-of-type{border-top:none}
+h3{font-size:16px;font-weight:600;margin:0 0 8px}
+.who{display:inline-block;font-family:ui-monospace,monospace;font-size:11px;color:var(--plum);
+  border:1px solid var(--line);border-radius:4px;padding:1px 7px;margin-left:8px;vertical-align:2px;font-weight:400}
+p{margin:0 0 10px;font-size:14.5px;color:var(--mute);max-width:62ch}
+p:last-child{margin-bottom:0}
+b{color:var(--ink);font-weight:500}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;
+  background:rgba(128,110,130,.15);padding:1px 5px;border-radius:3px;color:var(--ink)}
+.pre{position:relative;margin:12px 0}
+pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;line-height:1.6;
+  background:var(--code-bg);color:var(--code-fg);padding:15px 60px 15px 16px;border-radius:6px;
+  overflow-x:auto;margin:0;white-space:pre}
+.cp{position:absolute;top:9px;right:9px;font-family:ui-monospace,monospace;font-size:11px;padding:4px 9px;
+  cursor:pointer;background:rgba(255,255,255,.09);color:#C3B6BE;border:1px solid rgba(255,255,255,.16);border-radius:4px}
+.cp:hover{background:rgba(255,255,255,.18);color:#fff}
+.note{margin:12px 0;padding:11px 0 11px 14px;border-left:3px solid var(--amber);max-width:60ch}
+.note p{color:var(--amber);font-size:14px;margin:0}
+.note b{color:var(--amber);font-weight:600}
+.note.bad{border-left-color:var(--danger)}
+.note.bad p,.note.bad b{color:var(--danger)}
+table{border-collapse:collapse;margin:12px 0;font-size:14px;max-width:62ch;width:100%}
+td{padding:7px 12px 7px 0;border-bottom:1px solid var(--line);color:var(--mute);vertical-align:top}
+td:first-child{color:var(--ink);font-weight:500;white-space:nowrap;padding-right:22px}
+tr:last-child td{border-bottom:none}
+details{margin:14px 0}
+summary{cursor:pointer;font-size:15px;font-weight:500;padding:6px 0}
+dt{font-size:14.5px;font-weight:500;margin-top:16px;color:var(--ink)}
+dd{font-size:14px;color:var(--mute);margin:4px 0 0;max-width:62ch}
+footer{padding-top:26px;font-size:14px;color:var(--mute)}
+a{color:var(--plum)}
+@media(max-width:620px){.wrap{padding:28px 16px 60px}h1{font-size:25px}}
+@media print{nav,.cp{display:none}body{background:#fff;color:#000}.step{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">KaizenOneX / fitness-platform</p>
+  <h1>Week 1 — Setup</h1>
+  <p class="lede"><b>Done when</b> both of us can SSH to the mini PC from off the home network, and both have a <code>kind</code> cluster running. No Kubernetes on the mini PC this week — that comes in week 10, once we know what we're deploying to it.</p>
+  <div class="split">
+    <span><b>Manish</b> · accounts, ~30 min</span>
+    <span><b>Jigar</b> · mini PC, ~2 hrs</span>
+    <span><b>Both</b> · laptops, ~45 min each</span>
+  </div>
+</header>
+
+<nav>
+  <button data-f="all" aria-pressed="true">Everything</button>
+  <button data-f="manish" aria-pressed="false">Manish only</button>
+  <button data-f="jigar" aria-pressed="false">Jigar only</button>
+</nav>
+
+<section data-sec>
+<h2>Accounts and repos</h2>
+<p class="sub">Jigar's GitHub account needs an SSH key on it before we can lock down SSH on the mini PC. That's the one ordering dependency left.</p>
+
+<div class="step" data-o="manish">
+<h3>Invite Jigar to the org as Owner<span class="who">Manish</span></h3>
+<p>Settings → People → Invite member, then change role to Owner. With two people, role hierarchy is pointless overhead and you'll both hit permission walls otherwise.</p>
+</div>
+
+<div class="step" data-o="manish">
+<h3>Create <code>fitness-platform</code><span class="who">Manish</span></h3>
+<table>
+<tr><td>Visibility</td><td>Public</td></tr>
+<tr><td>README</td><td>On</td></tr>
+<tr><td>.gitignore</td><td>Go</td></tr>
+<tr><td>Licence</td><td>MIT</td></tr>
+</table>
+<p>Description: <i>Cloud-native fitness coaching CRM. Go modular monolith with extracted services, deployed to Kubernetes via GitOps.</i></p>
+<div class="note"><p><b>Public is not optional.</b> On a free organisation, branch protection and required reviews only work on public repos. Week 9 depends on it. Public also gives unlimited Actions minutes instead of a 2,000/month cap we'd blow through around week 16. Flipping to private later switches protection off silently, with no warning.</p></div>
+<p>Public repos don't mean public secrets — Actions secrets are encrypted and masked in logs. What <i>is</i> public: source, all git history, and CI run logs.</p>
+</div>
+
+<div class="step" data-o="manish">
+<h3>Create <code>fitness-platform-config</code><span class="who">Manish</span></h3>
+<p>Public, README on, no <code>.gitignore</code> (it holds only YAML), MIT licence. Description: <i>GitOps manifests for fitness-platform — Kustomize overlays reconciled by Argo CD.</i></p>
+<p>Public matters here too: in week 11 ArgoCD clones this repo, and public means an anonymous clone with no credential to manage.</p>
+</div>
+
+<div class="step" data-o="manish">
+<h3>Add topics to both repos<span class="who">Manish</span></h3>
+<p>Gear icon next to "About" on the repo page. Topics are what GitHub search filters on, so they do more work than the description.</p>
+<p><code>kubernetes</code> <code>golang</code> <code>gitops</code> <code>argocd</code> <code>devops</code> <code>microservices</code> <code>k3s</code></p>
+</div>
+
+<div class="step" data-o="manish">
+<h3>Branch protection on both repos<span class="who">Manish</span></h3>
+<p>Settings → Rules → Rulesets → New ruleset. Under <b>Target branches</b> choose <b>Include default branch</b>, set enforcement to <b>Active</b>, and tick <b>Require a pull request before merging</b> with 1 approval.</p>
+<div class="note"><p><b>Check the ruleset actually targets something.</b> A ruleset showing "targeting 0 branches" exists, looks configured, and protects nothing — pushes to <code>main</code> sail straight through. Verify by trying a direct push and watching it get rejected.</p></div>
+<p>Status checks get added in week 9 once CI exists. Doing this now means every change from week 2 goes through a PR, which is how we'll actually read each other's code rather than intending to.</p>
+</div>
+
+<div class="step" data-o="manish">
+<h3>Tailscale — join the tailnet<span class="who">Manish</span></h3>
+<p>Jigar owns the tailnet; Manish joins by invite. Free Personal plan covers 6 users and unlimited devices — plenty of headroom for every k3s node and VM later.</p>
+<div class="note"><p><b>Signing in with GitHub creates a tailnet of your own automatically</b>, so the login screen shows a picker with both. Choose Jigar's, not your own. Getting it wrong lands you on an empty network of one.</p></div>
+<p>Then: Jigar promotes Manish to Admin (Users → ··· → Change role), and check MagicDNS is on under DNS. That's what lets us type <code>ssh user@minipc</code> instead of memorising a <code>100.x.y.z</code> address.</p>
+</div>
+
+<div class="step" data-o="manish">
+<h3>Slack — three channels<span class="who">Manish</span></h3>
+<p><code>#general</code>, <code>#alerts</code>, <code>#deploys</code>. Alertmanager fires into alerts in week 24; ArgoCD posts to deploys from week 11. Mute deploys, set alerts to notify on all messages including mobile push — from week 24 that's the pager.</p>
+</div>
+
+<div class="step" data-o="manish">
+<h3>Deferred: Stripe and Cloudflare<span class="who">Manish</span></h3>
+<p>Stripe isn't needed until week 14 (billing module), Cloudflare until week 10 (tunnel) and 20 (R2 storage). Both are five-minute signups whenever we get there. No domain yet — everything runs locally on <code>*.localhost</code> until week 10.</p>
+</div>
+</section>
+
+<section data-sec>
+<h2>Mini PC</h2>
+<p class="sub">32 GB RAM, 256 GB NVMe, Intel i7. Ubuntu Desktop installed rather than Server, which changes three things — see below.</p>
+
+<div class="step" data-o="jigar">
+<h3>What the Desktop install changes<span class="who">Jigar</span></h3>
+<div class="note"><p><b>The Desktop installer has no "Install OpenSSH server" or "Import SSH identity from GitHub" options</b> — those are Server-installer only. So SSH almost certainly isn't running yet and there are no keys on the box. Two extra steps below cover it.</p></div>
+<p>The other two differences: GNOME idles at 1.5–2.5 GB we'd rather give Prometheus, and it enables idle suspend by default even on mains power. Both handled below. Desktop's guided install does use the whole disk by default, unlike Server's LVM which caps root at ~100 GB — worth confirming <code>df -h /</code> reads about 230G.</p>
+</div>
+
+<div class="step" data-o="jigar">
+<h3>Install and enable SSH<span class="who">Jigar</span></h3>
+<div class="pre"><pre>sudo apt update &amp;&amp; sudo apt install -y openssh-server
+sudo systemctl enable --now ssh
+systemctl status ssh</pre></div>
+<p>Nothing else this week works without this.</p>
+</div>
+
+<div class="step" data-o="jigar">
+<h3>Add both our SSH public keys<span class="who">Jigar</span></h3>
+<div class="pre"><pre>mkdir -p ~/.ssh &amp;&amp; chmod 700 ~/.ssh
+curl -s https://github.com/JIGAR_USERNAME.keys &gt;&gt; ~/.ssh/authorized_keys
+curl -s https://github.com/MANISH_USERNAME.keys &gt;&gt; ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys</pre></div>
+<p>Public keys are meant to be public — GitHub publishes them at that endpoint deliberately. The private key never leaves your machine.</p>
+<p>Test from a laptop with <code>ssh user@minipc</code> <b>before</b> the next step.</p>
+</div>
+
+<div class="step" data-o="jigar">
+<h3>Disable password SSH<span class="who">Jigar</span></h3>
+<div class="pre"><pre>sudo tee /etc/ssh/sshd_config.d/99-hardening.conf &gt; /dev/null &lt;&lt;'EOF'
+PasswordAuthentication no
+PermitRootLogin no
+KbdInteractiveAuthentication no
+EOF
+
+sudo systemctl restart ssh</pre></div>
+<div class="note bad"><p><b>Confirm key auth works in a second terminal before closing the first.</b> Locking yourself out of a box with no keyboard attached is a genuinely annoying evening.</p></div>
+<p>Config in <code>sshd_config.d/</code> rather than the main file means package upgrades won't clobber it.</p>
+</div>
+
+<div class="step" data-o="jigar">
+<h3>Boot to console instead of the desktop<span class="who">Jigar</span></h3>
+<div class="pre"><pre>sudo systemctl set-default multi-user.target
+sudo reboot</pre></div>
+<p>This makes the box boot headless while leaving GNOME installed. If you ever want it back for a session: <code>sudo systemctl isolate graphical.target</code>. Safer than purging <code>ubuntu-desktop</code>, which drags out packages you didn't expect.</p>
+</div>
+
+<div class="step" data-o="jigar">
+<h3>Automatic updates with a reboot window<span class="who">Jigar</span></h3>
+<div class="pre"><pre>sudo apt install -y unattended-upgrades</pre></div>
+<p>Then in <code>/etc/apt/apt.conf.d/50unattended-upgrades</code>:</p>
+<div class="pre"><pre>Unattended-Upgrade::Automatic-Reboot "true";
+Unattended-Upgrade::Automatic-Reboot-Time "04:00";</pre></div>
+<p>Auto-reboot sounds alarming, but an unpatched box nobody ever reboots is worse. By week 27 we'll have three nodes and rolling reboots stop mattering.</p>
+</div>
+
+<div class="step" data-o="jigar">
+<h3>Cap the system logs at 2 GB<span class="who">Jigar</span></h3>
+<div class="pre"><pre>sudo sed -i 's/^#\?SystemMaxUse=.*/SystemMaxUse=2G/' /etc/systemd/journald.conf
+sudo systemctl restart systemd-journald
+journalctl --disk-usage</pre></div>
+<p>First of the disk limits. The 256 GB drive is our one real constraint — four things on this stack grow unbounded unless capped. The rest get set in weeks 10, 22 and 23.</p>
+</div>
+
+<div class="step" data-o="jigar">
+<h3>Stop it sleeping<span class="who">Jigar</span></h3>
+<div class="pre"><pre>sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target</pre></div>
+<p>Matters more on a Desktop install — GNOME enables idle suspend by default, even on mains power. Masking the systemd targets blocks it regardless of what GNOME's own settings say.</p>
+</div>
+
+<div class="step" data-o="jigar">
+<h3>Confirm nothing is port-forwarded<span class="who">Jigar</span></h3>
+<p>Router admin → Port Forwarding, sometimes called Virtual Server. The list should be empty. Plenty of home routers carry forgotten rules from an old games console or NAS, and that's a genuine open door.</p>
+<div class="note"><p><b>We deliberately forward nothing.</b> Tailscale reaches the box by both ends dialling outbound and meeting in the middle; in week 10 Cloudflare Tunnel does the same for public web traffic. The router stays sealed and there's no internet-facing attack surface at all.</p></div>
+<p>A DHCP reservation was on the original list and we dropped it — MagicDNS reaches the box by name regardless of what the router hands out.</p>
+</div>
+
+<div class="step" data-o="jigar">
+<h3>Update and verify<span class="who">Jigar</span></h3>
+<div class="pre"><pre>sudo apt update &amp;&amp; sudo apt upgrade -y
+df -h /
+free -h
+lscpu | grep "Model name"
+nproc</pre></div>
+<p>Expect ~230G available. After the console-boot change, <code>free -h</code> should show noticeably more free memory than it did with GNOME running.</p>
+</div>
+</section>
+
+<section data-sec>
+<h2>Laptops</h2>
+<p class="sub">Each item needs doing once per person. On Windows, do all of this inside WSL2 — not native Windows, and not under <code>/mnt/c/</code>.</p>
+
+<div class="step" data-o="both">
+<h3>WSL2, on Windows<span class="who">Both</span></h3>
+<p>From an <b>administrator</b> PowerShell:</p>
+<div class="pre"><pre>wsl --install
+wsl --list --verbose</pre></div>
+<p>Needs a reboot. You want Ubuntu on VERSION 2. First launch asks for a username and password — that password is for <code>sudo</code> inside Linux, nothing to do with your Windows account.</p>
+<div class="note"><p><b>Work inside <code>~/</code>, never <code>/mnt/c/</code>.</b> WSL can reach the Windows drive, but cross-filesystem I/O is roughly ten times slower and will make week 6's Tilt loop feel broken when it isn't.</p></div>
+</div>
+
+<div class="step" data-o="both">
+<h3>Docker<span class="who">Both</span></h3>
+<p><b>Windows</b> — Docker Desktop, per-user installation, WSL2 backend. Then Settings → Resources → WSL Integration → enable for Ubuntu. Skip the sign-in prompt.</p>
+<p><b>macOS</b> — Colima is lighter than Docker Desktop with no licensing questions:</p>
+<div class="pre"><pre>brew install colima docker docker-buildx
+colima start --cpu 4 --memory 8 --disk 60</pre></div>
+<p><b>Linux</b> — Docker's official repo, then <code>sudo usermod -aG docker $USER</code> and log out and back in.</p>
+<p>Verify from inside WSL:</p>
+<div class="pre"><pre>docker version
+docker run --rm hello-world</pre></div>
+<p>If you get a socket permission error, run <code>wsl --shutdown</code> from PowerShell and reopen — the group membership only applies to new sessions.</p>
+</div>
+
+<div class="step" data-o="both">
+<h3>Run the bootstrap script<span class="who">Both</span></h3>
+<div class="pre"><pre>chmod +x bootstrap.sh
+./bootstrap.sh</pre></div>
+<p>Read it first — short, and a good habit. Installs kubectl, helm, kustomize, kind, tilt, argocd, k9s, stern, kubectx, jq, yq, direnv, gh, go and golangci-lint.</p>
+<div class="note"><p><b>On a fresh Ubuntu it fails partway through</b> with "No developer tools installed" — Homebrew needs a C compiler that Ubuntu doesn't ship. The script now installs <code>build-essential</code> first; if you hit it anyway, run <code>sudo apt install -y build-essential procps curl file git</code> and re-run.</p></div>
+<p>If <code>gh</code> or another tool comes back "command not found" afterwards, Homebrew isn't on your PATH in that shell. Open a new tab, or <code>source ~/.bashrc</code>.</p>
+</div>
+
+<div class="step" data-o="both">
+<h3>Git identity and SSH key<span class="who">Both</span></h3>
+<div class="pre"><pre>git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+ssh-keygen -t ed25519 -C "your-machine-name"</pre></div>
+<p>Enter through all three key prompts — default location, no passphrase. For the commit email, use GitHub's privacy address from Settings → Emails if you'd rather your real one stayed out of a public commit history.</p>
+</div>
+
+<div class="step" data-o="both">
+<h3>Authenticate and clone<span class="who">Both</span></h3>
+<div class="pre"><pre>gh auth login</pre></div>
+<p>GitHub.com → <b>SSH</b> → upload the key you just made → name it after the machine → login with a web browser.</p>
+<div class="pre"><pre>gh auth status
+gh repo list KaizenOneX
+
+mkdir -p ~/projects &amp;&amp; cd ~/projects
+gh repo clone KaizenOneX/fitness-platform
+gh repo clone KaizenOneX/fitness-platform-config</pre></div>
+<p>If the org isn't listed, the invite hasn't been accepted, or run <code>gh auth refresh -s read:org</code>.</p>
+</div>
+
+<div class="step" data-o="both">
+<h3>Create your first cluster<span class="who">Both</span></h3>
+<div class="pre"><pre>kind create cluster --name fitness-dev --config kind-config.yaml
+kubectl get nodes
+kubectl get pods -A</pre></div>
+<p>Three nodes, all Ready. The pods you see in <code>kube-system</code> are Kubernetes' own machinery — etcd, the API server, the scheduler, CoreDNS. Nothing of yours yet.</p>
+<p>Then open <code>k9s</code>: <code>0</code> for all namespaces, <code>?</code> for help, <code>:q</code> to quit.</p>
+</div>
+
+<div class="step" data-o="both">
+<h3>Delete and recreate it once<span class="who">Both</span></h3>
+<div class="pre"><pre>kind delete cluster --name fitness-dev
+kind create cluster --name fitness-dev --config kind-config.yaml</pre></div>
+<p>It feels wasteful and isn't. Internalising that dev clusters are disposable is what makes week 4 — where the whole exercise is breaking things on purpose — feel relaxed rather than nerve-wracking. Leave it destroyed afterwards; nothing needs it until week 4.</p>
+</div>
+
+<div class="step" data-o="both">
+<h3>Shell quality of life<span class="who">Both</span></h3>
+<div class="pre"><pre>echo 'source &lt;(kubectl completion bash)' &gt;&gt; ~/.bashrc
+echo 'alias k=kubectl' &gt;&gt; ~/.bashrc
+echo 'complete -o default -F __start_kubectl k' &gt;&gt; ~/.bashrc
+echo 'eval "$(direnv hook bash)"' &gt;&gt; ~/.bashrc
+source ~/.bashrc</pre></div>
+<p>Use <code>~/.zshrc</code> on zsh. The third line wires completion to the alias too — without it, <code>k get pod</code> + Tab does nothing, which is the annoying half-working state most people end up in.</p>
+</div>
+</section>
+
+<section data-sec>
+<h2>Sign-off</h2>
+<p class="sub">Any difference between the two machines now is a difference we'd otherwise be debugging in week 6.</p>
+
+<div class="step" data-o="manish">
+<h3>Ship the scripts as a pull request<span class="who">Manish</span></h3>
+<p>Worth doing the wrong way first, deliberately:</p>
+<div class="pre"><pre>git add scripts/bootstrap.sh kind-config.yaml
+git commit -m "chore: add toolbelt bootstrap and kind config"
+git push origin main</pre></div>
+<p>That should be rejected for a protected branch. Then do it properly:</p>
+<div class="pre"><pre>git switch -c chore/bootstrap-scripts
+git push -u origin chore/bootstrap-scripts
+gh pr create --fill</pre></div>
+<p>Jigar approves, you merge, then <code>git switch main &amp;&amp; git pull</code>. That last step is the one people forget — merging happens on GitHub's servers, and your laptop knows nothing about it until you pull.</p>
+<div class="note bad"><p><b>Don't reach for <code>git reset --hard</code> to undo things.</b> It discards uncommitted work with no recovery path. <code>git reset --soft HEAD~1</code> undoes a commit while keeping the changes, and <code>git reflog</code> is your safety net if you've already broken something.</p></div>
+</div>
+
+<div class="step" data-o="both">
+<h3>SSH to the mini PC from off-network<span class="who">Both</span></h3>
+<p>Tether off a phone, so we know it isn't just working on the LAN. This is the actual goal of the week.</p>
+<div class="pre"><pre>tailscale ping minipc
+ssh youruser@minipc</pre></div>
+<p><code>tailscale ping</code> tells you whether you got a direct connection or fell back to a relay. Direct is better; relayed still works fine.</p>
+</div>
+
+<div class="step" data-o="both">
+<h3>Compare version output<span class="who">Both</span></h3>
+<div class="pre"><pre>docker version
+kubectl version --client
+helm version
+kind version
+tilt version
+go version
+k9s version
+tailscale status
+gh auth status</pre></div>
+</div>
+</section>
+
+<section data-sec>
+<h2>Reference</h2>
+
+<details>
+<summary>If something goes wrong</summary>
+<dl>
+<dt>Permission denied (publickey) on the mini PC</dt>
+<dd>The keys weren't added, or went to the wrong user's home directory. <code>cat ~/.ssh/authorized_keys</code> should show both. The file belongs to whichever user you SSH in as.</dd>
+<dt>Connection refused on SSH</dt>
+<dd><code>openssh-server</code> isn't installed or isn't running. Check <code>sudo systemctl status ssh</code>.</dd>
+<dt>Docker: permission denied on /var/run/docker.sock</dt>
+<dd>Run <code>wsl --shutdown</code> from PowerShell and reopen. If it persists, <code>sudo usermod -aG docker $USER</code> then shut down WSL again.</dd>
+<dt>gh: command not found after bootstrap.sh</dt>
+<dd>Homebrew isn't on PATH in that shell. <code>source ~/.bashrc</code> or open a new tab.</dd>
+<dt>Homebrew: "No developer tools installed"</dt>
+<dd><code>sudo apt install -y build-essential procps curl file git</code>, then re-run the script.</dd>
+<dt>Pushes to main succeed when they shouldn't</dt>
+<dd>The ruleset targets 0 branches. Edit it, add <b>Include default branch</b> as a target, and confirm enforcement is Active rather than Evaluate.</dd>
+<dt>Tailscale connects but SSH hangs</dt>
+<dd>Check <code>tailscale status</code> on both ends. "relay" instead of direct still works, just slower. Some routers need UPnP enabled for direct connections.</dd>
+<dt>kind fails with "too many open files"</dt>
+<dd>A Linux inotify limit. <code>sudo sysctl fs.inotify.max_user_watches=524288</code> and <code>sudo sysctl fs.inotify.max_user_instances=512</code>, then add both to <code>/etc/sysctl.conf</code>.</dd>
+</dl>
+</details>
+
+<details>
+<summary>Deferred or dropped</summary>
+<dl>
+<dt>DHCP reservation — dropped</dt>
+<dd>MagicDNS reaches the box by name regardless of what the router hands out.</dd>
+<dt>Domain name — around week 8</dt>
+<dd>Nothing needs it until week 10's tunnel; local work runs on <code>*.localhost</code>. Buy it early so DNS is settled before we debug the tunnel.</dd>
+<dt>Stripe — week 14</dt>
+<dd>Test mode, for the billing module. Five-minute signup whenever we get there.</dd>
+<dt>Cloudflare — weeks 10 and 20</dt>
+<dd>Tunnel for public access, R2 for media storage and Postgres backups.</dd>
+<dt>AWS — around week 12</dt>
+<dd>Three short weekends only, £20–40 total. An idle account is just something to worry about.</dd>
+<dt>Grafana Cloud — never</dt>
+<dd>32 GB means we self-host the whole observability stack.</dd>
+<dt>k3s on the mini PC — week 10</dt>
+<dd>Install it once we know what we're deploying to it.</dd>
+</dl>
+</details>
+</section>
+
+<footer>
+<p><b>Next week:</b> git properly — two hours of Learn Git Branching, both of us. Then Docker in depth: multi-stage builds, layer cache ordering, non-root containers, a Go image under 20 MB. Then ADRs 001–006. Come with an opinion on the stack recommendations, because we'll be living with them for six months.</p>
+<p>Command reference: <a href="week-01-commands.html">week-01-commands.html</a> · Tracker: the week 1 issue.</p>
+</footer>
+
+</div>
+<script>
+document.querySelectorAll('.pre').forEach(w=>{
+  const b=document.createElement('button');
+  b.className='cp';b.textContent='copy';
+  b.addEventListener('click',async()=>{
+    const t=w.querySelector('pre').innerText;
+    try{await navigator.clipboard.writeText(t);}
+    catch(e){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');}catch(_){}document.body.removeChild(a);}
+    b.textContent='copied';setTimeout(()=>{b.textContent='copy';},1300);
+  });
+  w.appendChild(b);
+});
+let f='all';
+document.querySelectorAll('nav button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    f=btn.dataset.f;
+    document.querySelectorAll('nav button').forEach(x=>x.setAttribute('aria-pressed',x===btn?'true':'false'));
+    document.querySelectorAll('.step').forEach(s=>{
+      const o=s.dataset.o;
+      s.classList.toggle('hide',!(f==='all'||o===f||o==='both'));
+    });
+    document.querySelectorAll('[data-sec]').forEach(sec=>{
+      const vis=[...sec.querySelectorAll('.step')].filter(s=>!s.classList.contains('hide'));
+      sec.classList.toggle('hide',vis.length===0&&sec.querySelectorAll('.step').length>0);
+    });
+  });
+});
+</script>
+</body>
+</html>
