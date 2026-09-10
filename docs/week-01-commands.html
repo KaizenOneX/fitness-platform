@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 1 commands — fitness-platform</title>
+<style>
+:root{
+  --ink:#2A1F2D; --paper:#F6F3F5; --card:#FCFAFB; --line:#DED5DB;
+  --plum:#772953; --mute:#7A7078; --danger:#9A3324; --mono:#1E1620;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --ink:#EDE6EA; --paper:#1A151C; --card:#221C24; --line:#3A303B;
+    --plum:#D08BAE; --mute:#9C919A; --danger:#E08B7A; --mono:#EDE6EA;
+  }
+}
+*{box-sizing:border-box}
+body{
+  margin:0; padding:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--paper); color:var(--ink);
+  font-size:15px; line-height:1.6;
+}
+.wrap{max-width:900px;margin:0 auto;padding:40px 24px 80px}
+header{border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:28px}
+.eyebrow{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;color:var(--plum);margin:0 0 8px}
+h1{font-size:26px;font-weight:600;letter-spacing:-.015em;margin:0 0 8px}
+.lede{font-size:14.5px;color:var(--mute);margin:0;max-width:62ch}
+.controls{position:sticky;top:0;background:var(--paper);padding:16px 0;z-index:5;border-bottom:1px solid var(--line);margin-bottom:8px}
+input[type=search]{
+  width:100%;padding:10px 14px;font-size:15px;font-family:inherit;
+  background:var(--card);color:var(--ink);
+  border:1px solid var(--line);border-radius:6px;
+}
+input[type=search]:focus{outline:2px solid var(--plum);outline-offset:1px;border-color:var(--plum)}
+.count{font-size:12.5px;color:var(--mute);margin:8px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+section{margin:32px 0 0}
+section.hide{display:none}
+h2{font-size:13px;font-weight:600;color:var(--mute);text-transform:none;letter-spacing:.03em;margin:0 0 10px}
+.row{display:flex;gap:16px;align-items:flex-start;padding:11px 0;border-top:1px solid var(--line)}
+.row.hide{display:none}
+.left{flex:0 0 44%;min-width:0}
+.cmd{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:13px;color:var(--mono);word-break:break-word;line-height:1.5;
+}
+.desc{flex:1;min-width:0;font-size:13.5px;line-height:1.55;color:var(--mute)}
+.warn{display:block;font-size:12.5px;color:var(--danger);margin-top:4px;font-weight:500}
+.copy{
+  flex:0 0 auto;background:transparent;border:1px solid var(--line);border-radius:5px;
+  color:var(--mute);cursor:pointer;padding:4px 9px;font-size:11px;font-family:ui-monospace,monospace;
+}
+.copy:hover{color:var(--ink);border-color:var(--mute)}
+.copy:focus-visible{outline:2px solid var(--plum);outline-offset:2px}
+.none{font-size:14px;color:var(--mute);padding:24px 0}
+.none.hide{display:none}
+footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-size:12.5px;color:var(--mute)}
+@media(max-width:620px){
+  .wrap{padding:24px 16px 60px}
+  .row{flex-wrap:wrap;gap:8px}
+  .left,.desc{flex:1 1 100%}
+}
+@media print{
+  .controls,.copy{display:none}
+  body{background:#fff;color:#000}
+  .row{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">KaizenOneX / fitness-platform</p>
+  <h1>Week 1 commands</h1>
+  <p class="lede">Every Linux, git, Docker and Kubernetes command used getting set up, with what each one actually does. Filter to find things fast; click copy to grab a command.</p>
+</header>
+
+<div class="controls">
+  <input type="search" id="q" placeholder="Filter commands — try &quot;branch&quot;, &quot;undo&quot;, &quot;pod&quot;" aria-label="Filter commands">
+  <p class="count" id="count"></p>
+</div>
+
+<div id="list"></div>
+<p class="none hide" id="none">Nothing matches that.</p>
+
+<footer>
+  Commit to <code>docs/week-01-commands.html</code>. Open it straight from the filesystem — no server needed.
+</footer>
+
+</div>
+
+<script>
+const DATA = [
+["WSL, from PowerShell", [
+["wsl --install","Installs WSL2 and Ubuntu together. Needs an admin PowerShell and a reboot."],
+["wsl --list --verbose","Lists installed distros and their WSL version. You want Ubuntu on version 2."],
+["wsl --shutdown","Stops all WSL instances. Needed after group changes so a new session picks them up."]
+]],
+["Moving around", [
+["pwd","Print working directory — where am I."],
+["ls -la","List everything including hidden files, with permissions and owners."],
+["cd ~","Go to your home directory, /home/yourname."],
+["cd ..","Go up one level."],
+["cd -","Jump back to the previous directory."],
+["mkdir -p projects/scripts","Create a directory. -p creates any missing parents too."],
+["cp source dest","Copy a file. Source first, destination second."],
+["cat file","Print a whole file to the screen."],
+["less file","Page through a long file. q to quit."],
+["nano file","Simple text editor. Ctrl+O saves, Ctrl+X exits."],
+["grep pattern file","Search inside a file and print matching lines."],
+["which docker","Show where a command actually lives on disk."],
+["echo 'line' >> file","Append a line to a file.","One > instead of two overwrites the whole file."]
+]],
+["Permissions and sudo", [
+["sudo command","Run one command as root. Asks for your Ubuntu password, not your Windows one."],
+["sudo !!","Re-run the previous command with sudo. Saves retyping after a permission denied."],
+["chmod +x script.sh","Add the executable bit so a script can run. Git tracks this bit."],
+["sudo usermod -aG docker $USER","Add yourself to the docker group. Needs a new session before it applies."],
+["source ~/.bashrc","Reload your shell config without opening a new tab."]
+]],
+["Packages", [
+["sudo apt update","Refresh the list of available packages. Doesn't install anything."],
+["sudo apt upgrade -y","Upgrade everything installed. -y answers yes to prompts."],
+["sudo apt install -y build-essential","Install a package. build-essential is the C compiler Homebrew needs."]
+]],
+["Docker", [
+["docker version","Show client and daemon versions. A missing daemon line means it isn't running."],
+["docker run --rm hello-world","Pull and run a test image. --rm deletes the container when it exits."],
+["docker ps","List running containers. Your kind cluster appears here as three of them."]
+]],
+["Git identity and keys", [
+["git config --global user.name \"Manish\"","Set the display name attached to your commits."],
+["git config --global user.email \"you@example.com\"","Set the commit email. Must be on your GitHub account or commits won't link."],
+["git config --global --list","Show all your global git settings."],
+["ssh-keygen -t ed25519 -C \"manish-wsl\"","Generate an SSH keypair. -C is just a label. Enter through all prompts."]
+]],
+["GitHub CLI", [
+["gh auth login","Authenticate with GitHub. Choose SSH as the protocol."],
+["gh auth status","Check you're logged in and which protocol is in use."],
+["gh auth refresh -s read:org","Add a permission scope to your existing login."],
+["gh repo list KaizenOneX","List the org's repos. Confirms you can see the organisation."],
+["gh repo clone KaizenOneX/fitness-platform","Clone a repo into the current directory."],
+["gh pr create --fill","Open a pull request using your commit message as title and body."],
+["gh pr view --web","Open the current branch's PR in a browser."],
+["gh pr merge --squash --delete-branch","Merge the PR as one commit and clean up the branch."],
+["gh issue create --body-file week-01.md","Create an issue with its body taken from a file."]
+]],
+["Git day to day", [
+["git status","What's changed, what's staged, which branch you're on. Run it constantly."],
+["git add file","Stage a file for the next commit."],
+["git commit -m \"chore: add bootstrap\"","Record staged changes as a commit."],
+["git switch -c chore/my-branch","Create a branch and switch to it. Carries uncommitted work across."],
+["git switch main","Switch to an existing branch."],
+["git push -u origin chore/my-branch","Push a new branch and link it to the remote. First push only."],
+["git push","Push to the already-linked remote branch."],
+["git pull","Fetch and merge remote changes. Run after any merge on GitHub."],
+["git log --oneline -5","Last five commits, one line each."],
+["git diff","Show unstaged changes line by line."],
+["git reset --soft HEAD~1","Undo the last commit but keep the changes staged. The safe undo."],
+["git reset --hard origin/main","Discard all local commits and uncommitted work back to the remote.","Destroys uncommitted work with no undo. This is the one that bit you."],
+["git reflog","Every position HEAD has been in. Your safety net after a bad reset."]
+]],
+["kind and kubectl", [
+["kind create cluster --name fitness-dev --config kind-config.yaml","Create a local cluster as Docker containers."],
+["kind delete cluster --name fitness-dev","Destroy the cluster. Fast to rebuild, so do this freely."],
+["kubectl get nodes","List cluster nodes. You want three, all Ready."],
+["kubectl get pods -A","Every pod in every namespace, including Kubernetes' own components."],
+["kubectl get pods -n kube-system","Pods in one namespace."],
+["kubectl describe pod NAME","Full detail including events. First stop when something won't start."],
+["kubectl logs NAME","Print a pod's logs."],
+["kubectl logs --previous NAME","Logs from the previous crashed instance. Essential for crash loops."],
+["kubectl cluster-info --context kind-fitness-dev","Confirm which cluster you're pointed at."],
+["k9s","Terminal UI for the cluster. 0 for all namespaces, ? for help, :q to quit."]
+]]
+];
+
+const list = document.getElementById('list');
+let total = 0;
+
+DATA.forEach(([cat, items]) => {
+  const sec = document.createElement('section');
+  const h = document.createElement('h2');
+  h.textContent = cat;
+  sec.appendChild(h);
+
+  items.forEach(([cmd, desc, warn]) => {
+    total++;
+    const row = document.createElement('div');
+    row.className = 'row';
+    row.dataset.s = (cmd + ' ' + desc + ' ' + cat).toLowerCase();
+
+    const left = document.createElement('div');
+    left.className = 'left';
+    const c = document.createElement('div');
+    c.className = 'cmd';
+    c.textContent = cmd;
+    left.appendChild(c);
+
+    const d = document.createElement('div');
+    d.className = 'desc';
+    d.textContent = desc;
+    if (warn) {
+      const w = document.createElement('span');
+      w.className = 'warn';
+      w.textContent = warn;
+      d.appendChild(w);
+    }
+
+    const b = document.createElement('button');
+    b.className = 'copy';
+    b.textContent = 'copy';
+    b.setAttribute('aria-label', 'Copy: ' + cmd);
+    b.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(cmd);
+      } catch (e) {
+        const t = document.createElement('textarea');
+        t.value = cmd;
+        document.body.appendChild(t);
+        t.select();
+        try { document.execCommand('copy'); } catch (_) {}
+        document.body.removeChild(t);
+      }
+      b.textContent = 'copied';
+      setTimeout(() => { b.textContent = 'copy'; }, 1200);
+    });
+
+    row.appendChild(left);
+    row.appendChild(d);
+    row.appendChild(b);
+    sec.appendChild(row);
+  });
+
+  list.appendChild(sec);
+});
+
+const q = document.getElementById('q');
+const none = document.getElementById('none');
+const count = document.getElementById('count');
+
+function update() {
+  const v = q.value.trim().toLowerCase();
+  let shownTotal = 0;
+  document.querySelectorAll('section').forEach(sec => {
+    let shown = 0;
+    sec.querySelectorAll('.row').forEach(r => {
+      const m = !v || r.dataset.s.includes(v);
+      r.classList.toggle('hide', !m);
+      if (m) shown++;
+    });
+    sec.classList.toggle('hide', shown === 0);
+    shownTotal += shown;
+  });
+  none.classList.toggle('hide', shownTotal > 0);
+  count.textContent = v ? shownTotal + ' of ' + total + ' commands' : total + ' commands';
+}
+
+q.addEventListener('input', update);
+update();
+</script>
+</body>
+</html>
