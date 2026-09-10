@@ -21,6 +21,18 @@ die()   { printf '\033[1;31mxx\033[0m  %s\n' "$1" >&2; exit 1; }
 # Homebrew (works on macOS and Linux; keeps both machines on one package set)
 # ---------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------
+# Homebrew on Linux needs a C compiler and a few basics. Ubuntu ships without
+# them, and the failure surfaces late — partway through installing a formula
+# that needs to build from source (tilt was the one that caught us).
+# ---------------------------------------------------------------------------
+
+if [[ "$(uname -s)" == "Linux" ]] && ! command -v gcc >/dev/null 2>&1; then
+  info "Installing build dependencies (needs sudo)"
+  sudo apt-get update -qq
+  sudo apt-get install -y build-essential procps curl file git
+fi
+
 if ! command -v brew >/dev/null 2>&1; then
   info "Homebrew not found — installing"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
